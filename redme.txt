@@ -1,0 +1,11 @@
+here you need 
+ 1-python (pip - docker file is written in python)
+ 2- you need flask
+ 3- first off all copy app.py simply mkdir>cd> nano/vi app.py 
+ 4- now nano/vi dockerfile and write your envionmnet 
+ 5-create image # [docker build -t <img-name> .]
+ 6- run container # [docker run -it -d --name <cont-name> <your image name>]
+ 7- go inside it # [ docker exec -it <cont-name/id> /bin/bash]
+         whoaa ls your files there 
+        - nginx usr/share/nginx/html # index.html 
+        - mysql var/lib/mysql # -u root -p
