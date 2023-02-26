@@ -12,3 +12,36 @@ here you need
         
         
         or simply run pull flask image > run image > keep container running to execute your docker file
+        
+        
+----------------------------------------------------------------------------------------------------------------------------------------
+(NETWORK)                                                                       
+MACROSERVICE ARCH. 
+pvt/public N/W merge two containers
+
+# [docker network create <n/w_name>
+# [docker network ls/list]
+1# [docker network connect <n/w_name> <container_id/name>] ---- assign manually
+2# [docker run -it -d --network <n/w_name> --name <cont_name> ]-- during run time assign
+# docker inspect <n/w name>
+----------------------------------------------------------------------------------------------------------------------------------------------
+(VOLUMES) 
+WHAT IFF CONTAINER CRASH THERE MUST BE DATA STORED 
+
+# [docker volume create <volume_name>
+# [docker volume ls/list]
+1# [docker run -it -d --mount source = <volume_name> target= <path where you want to attach volume>  ]-- manually assign
+2# [docker run -it -d -p 80:80 <volume_name>:<taget patwhere to attach it>]
+# docker inspect <n/w name>
+
+________________________________________________________________________________________________________________________________________________
+(RESTART POLICY)
+ NEW CONTAINER WITH SAME ENVIORNMENT MUST START
+  1#  docker run -it -d --restart= (no/always/unless stopped/ on-failure / on failure :10(times)) <imagename>
+  
+ ______________________________________________________________________________________________________________________________________________
+ (ASSIGN RAM AND CPU)
+ MANUALLY SET YOUR CPU RAM 
+ 
+#1 [ docker run -it -d -p 80:80 --memory = "1g" --cpu = "0.25" <image_name><other_parameters>
+_______________________________________________________________________________________________________________________________________-
