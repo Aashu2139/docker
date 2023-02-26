@@ -9,3 +9,6 @@ here you need
          whoaa ls your files there 
         - nginx usr/share/nginx/html # index.html 
         - mysql var/lib/mysql # -u root -p
+        
+        
+        or simply run pull flask image > run image > keep container running to execute your docker file
