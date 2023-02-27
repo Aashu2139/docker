@@ -1,0 +1,85 @@
+
+ ## free ram   #1free && sync && echo 3 > /proc/sys/vm/drop_caches && free
+____________________________________________________________________________________________________________________-
+here must be docker-compose on your system
+  #1  sudo curl -L https://github.com/docker/compose/releases/download/1.21.0/docker-compose-$(uname -s)-$(uname -m) -o /usr/local/bin/docker-compose
+  #2  sudo chmod +x /usr/local/bin/docker-compose
+  #3  sudo ln -s /usr/local/bin/docker-compose /usr/bin/docker-compose
+  #4  docker-compose --version
+________________________________________________________________________________________________________________________-
+
+
+
+services:
+   
+  mywordpress:
+        
+      image: wordpress
+        
+      ports:
+         
+        - 80:80
+        
+      environment:
+             
+           WORDPRESS_DB_HOST: mydb
+          
+           WORDPRESS_DB_USER: root
+           
+           WORDPRESS_DB_PASSWORD: Pass@123
+             
+           WORDPRESS_DB_NAME: wordpressdb
+        
+
+      depends_on:
+           
+           mydb:
+            
+              condition: service_healthy
+
+
+    
+  
+  mydb:
+       i
+      image: mariadb
+       
+      expose:
+         
+         - 3306
+       
+      environment:
+         
+              MYSQL_ROOT_PASSWORD: Pass@123
+          
+              MYSQL_DATABASE: wordpressdb
+       
+      healthcheck:
+          
+           test:     ["CMD","mysqladmin","-uroot","-pPass@123","ping","-h","localhost"]
+          
+           interval: 5s
+          
+           timeout: 3s
+          
+           retries: 3
+ 
+___________________________________________________________________________________________________________________________ 
+version: '3.8'
+services:
+  mydb:
+    image: mariadb
+
+    restart: always
+
+    environment:
+        MYSQL_DATABASE=wordpress
+        MYSQL_ROOT_PASSWORD=Pass@123
+    ports:
+        '3306:3306'
+    volumes:
+        db:/var/lib/mysql
+        ./db/init.sql:/docker-entrypoint-initdb.d/init.sql
+volumes:
+  mydb:
+    driver: local

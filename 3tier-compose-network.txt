@@ -1,0 +1,70 @@
+#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
+
+# threetier for network and volume 
+#volume : (give volume mount path)(./mkdir_folder/:path)
+#---------------------------------------------------------------------------------------
+services:
+    
+ web:
+      
+   image: nginx
+      
+   ports:
+      
+     - 80:80
+      
+   networks:
+        
+     - front
+
+
+
+#---------------------------------------------------------    
+ app:
+      
+   image: bitnami/php-fpm
+
+   expose:
+       
+     - 9000
+      
+   networks:
+       
+     - front
+       
+     - back
+
+#----------------------------------------------------------------
+    
+ db:
+      
+   image: mysql
+      
+   expose:
+        
+      - 3306
+      
+   environment:
+        
+      MYSQL_ROOT_PASSWORD: Pass@123
+      
+   networks:
+        
+      - back
+ 
+networks:
+   
+      front:
+      
+         driver: bridge
+   
+      back:
+      
+         driver: bridge
+
+
+#--------------------
+# service:
+#    web:
+#     build:
+#       dockerfile:(dockerfilename) 
